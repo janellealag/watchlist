@@ -30,6 +30,13 @@ namespace SecondTry
             connetionString = "server=localhost;database=dcm;uid=root;";
             cnn = new MySqlConnection(connetionString);
 
+            // declare combobox values
+            cmbStatus.Items.Add("Active");
+            cmbStatus.Items.Add("Permanent Cleared");
+            cmbStatus.Items.Add("Temporary Cleared");
+            cmbStatus.SelectedIndex = 0;
+
+
             try
             {
                 cnn.Open();
@@ -82,7 +89,7 @@ namespace SecondTry
                 {
                     cnn.Open();
 
-                    string query = "Insert into tblWatchlist (lastname, firstname, othername, middlename, bdate, violation, cmplainant) values ('" + this.txtLname.Text + "', '" + this.txtFname.Text + "', '" + this.txtOther.Text + "', '" + this.txtMname.Text + "', '" + this.dateBirthdate.Value.Date.ToString("yyyy-MM-dd") + "', '" + this.txtViolation.Text + "', '" + this.txtComplainant.Text + "')";
+                    string query = "Insert into tblWatchlist (lastname, firstname, othername, middlename, bdate, violation, cmplainant, watchStat) values ('" + this.txtLname.Text + "', '" + this.txtFname.Text + "', '" + this.txtOther.Text + "', '" + this.txtMname.Text + "', '" + this.dateBirthdate.Value.Date.ToString("yyyy-MM-dd") + "', '" + this.txtViolation.Text + "', '" + this.txtComplainant.Text + "', '"+this.cmbStatus.Text+"')";
 
                     MySqlCommand MyCommand2 = new MySqlCommand(query, cnn);
                     MySqlDataReader MyReader2;

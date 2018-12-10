@@ -68,6 +68,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.e_cmbStatus = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cmbShow = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -94,9 +98,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(259, 560);
+            this.btnDelete.Location = new System.Drawing.Point(246, 572);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(135, 41);
+            this.btnDelete.Size = new System.Drawing.Size(95, 41);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -188,9 +192,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(108, 560);
+            this.btnUpdate.Location = new System.Drawing.Point(147, 572);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(135, 41);
+            this.btnUpdate.Size = new System.Drawing.Size(93, 41);
             this.btnUpdate.TabIndex = 4;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -200,7 +204,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bookman Old Style", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(448, 99);
+            this.label1.Location = new System.Drawing.Point(448, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(228, 27);
             this.label1.TabIndex = 5;
@@ -211,7 +215,7 @@
             // 
             this.e_userid.Enabled = false;
             this.e_userid.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.e_userid.Location = new System.Drawing.Point(189, 256);
+            this.e_userid.Location = new System.Drawing.Point(188, 213);
             this.e_userid.Name = "e_userid";
             this.e_userid.Size = new System.Drawing.Size(219, 27);
             this.e_userid.TabIndex = 6;
@@ -220,7 +224,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(62, 257);
+            this.label2.Location = new System.Drawing.Point(61, 214);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 19);
             this.label2.TabIndex = 7;
@@ -230,7 +234,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(62, 294);
+            this.label3.Location = new System.Drawing.Point(61, 251);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 19);
             this.label3.TabIndex = 8;
@@ -239,7 +243,7 @@
             // e_fname
             // 
             this.e_fname.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.e_fname.Location = new System.Drawing.Point(189, 290);
+            this.e_fname.Location = new System.Drawing.Point(188, 247);
             this.e_fname.Name = "e_fname";
             this.e_fname.Size = new System.Drawing.Size(219, 27);
             this.e_fname.TabIndex = 9;
@@ -247,7 +251,7 @@
             // e_mname
             // 
             this.e_mname.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.e_mname.Location = new System.Drawing.Point(189, 326);
+            this.e_mname.Location = new System.Drawing.Point(188, 283);
             this.e_mname.Name = "e_mname";
             this.e_mname.Size = new System.Drawing.Size(219, 27);
             this.e_mname.TabIndex = 10;
@@ -255,7 +259,7 @@
             // e_lname
             // 
             this.e_lname.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.e_lname.Location = new System.Drawing.Point(189, 364);
+            this.e_lname.Location = new System.Drawing.Point(188, 321);
             this.e_lname.Name = "e_lname";
             this.e_lname.Size = new System.Drawing.Size(219, 27);
             this.e_lname.TabIndex = 11;
@@ -263,7 +267,7 @@
             // e_oname
             // 
             this.e_oname.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.e_oname.Location = new System.Drawing.Point(189, 400);
+            this.e_oname.Location = new System.Drawing.Point(188, 357);
             this.e_oname.Name = "e_oname";
             this.e_oname.Size = new System.Drawing.Size(219, 27);
             this.e_oname.TabIndex = 12;
@@ -271,7 +275,7 @@
             // e_violation
             // 
             this.e_violation.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.e_violation.Location = new System.Drawing.Point(189, 476);
+            this.e_violation.Location = new System.Drawing.Point(188, 433);
             this.e_violation.Name = "e_violation";
             this.e_violation.Size = new System.Drawing.Size(219, 27);
             this.e_violation.TabIndex = 14;
@@ -280,7 +284,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(62, 334);
+            this.label4.Location = new System.Drawing.Point(61, 291);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 19);
             this.label4.TabIndex = 15;
@@ -290,7 +294,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(62, 372);
+            this.label5.Location = new System.Drawing.Point(61, 329);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(92, 19);
             this.label5.TabIndex = 16;
@@ -300,7 +304,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(62, 408);
+            this.label6.Location = new System.Drawing.Point(61, 365);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(48, 19);
             this.label6.TabIndex = 17;
@@ -310,7 +314,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(62, 447);
+            this.label7.Location = new System.Drawing.Point(61, 404);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(80, 19);
             this.label7.TabIndex = 18;
@@ -319,7 +323,7 @@
             // e_complainant
             // 
             this.e_complainant.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.e_complainant.Location = new System.Drawing.Point(189, 511);
+            this.e_complainant.Location = new System.Drawing.Point(188, 468);
             this.e_complainant.Name = "e_complainant";
             this.e_complainant.Size = new System.Drawing.Size(219, 27);
             this.e_complainant.TabIndex = 19;
@@ -328,7 +332,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(62, 484);
+            this.label8.Location = new System.Drawing.Point(61, 441);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 19);
             this.label8.TabIndex = 20;
@@ -338,7 +342,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(62, 519);
+            this.label9.Location = new System.Drawing.Point(61, 476);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(108, 19);
             this.label9.TabIndex = 21;
@@ -410,7 +414,7 @@
             this.e_bday.CustomFormat = "yyyy-MM-dd";
             this.e_bday.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.e_bday.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.e_bday.Location = new System.Drawing.Point(189, 438);
+            this.e_bday.Location = new System.Drawing.Point(188, 395);
             this.e_bday.Name = "e_bday";
             this.e_bday.Size = new System.Drawing.Size(219, 27);
             this.e_bday.TabIndex = 28;
@@ -430,7 +434,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(60, 36);
+            this.pictureBox1.Location = new System.Drawing.Point(66, 22);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(359, 142);
             this.pictureBox1.TabIndex = 30;
@@ -441,11 +445,51 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Candara", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Coral;
-            this.label11.Location = new System.Drawing.Point(63, 217);
+            this.label11.Location = new System.Drawing.Point(61, 184);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(179, 14);
             this.label11.TabIndex = 33;
             this.label11.Text = "Note: Fields with (*) are required.";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(62, 516);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(53, 19);
+            this.label12.TabIndex = 34;
+            this.label12.Text = "Status";
+            // 
+            // e_cmbStatus
+            // 
+            this.e_cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.e_cmbStatus.Font = new System.Drawing.Font("Candara", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.e_cmbStatus.FormattingEnabled = true;
+            this.e_cmbStatus.Location = new System.Drawing.Point(188, 509);
+            this.e_cmbStatus.Name = "e_cmbStatus";
+            this.e_cmbStatus.Size = new System.Drawing.Size(219, 26);
+            this.e_cmbStatus.TabIndex = 35;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Candara", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(450, 108);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(38, 15);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "Show";
+            // 
+            // cmbShow
+            // 
+            this.cmbShow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbShow.Font = new System.Drawing.Font("Candara", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbShow.FormattingEnabled = true;
+            this.cmbShow.Location = new System.Drawing.Point(494, 102);
+            this.cmbShow.Name = "cmbShow";
+            this.cmbShow.Size = new System.Drawing.Size(219, 26);
+            this.cmbShow.TabIndex = 37;
             // 
             // Form1
             // 
@@ -453,6 +497,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1245, 723);
+            this.Controls.Add(this.cmbShow);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.e_cmbStatus);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label10);
@@ -536,6 +584,10 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox e_cmbStatus;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cmbShow;
     }
 }
 

@@ -49,8 +49,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtComplainant = new System.Windows.Forms.TextBox();
             this.NewRecord = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cmbStatus = new System.Windows.Forms.ComboBox();
             this.NewRecord.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -221,7 +223,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(465, 174);
+            this.label8.Location = new System.Drawing.Point(464, 160);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(108, 19);
             this.label8.TabIndex = 18;
@@ -230,13 +232,15 @@
             // txtComplainant
             // 
             this.txtComplainant.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtComplainant.Location = new System.Drawing.Point(578, 171);
+            this.txtComplainant.Location = new System.Drawing.Point(578, 157);
             this.txtComplainant.Name = "txtComplainant";
             this.txtComplainant.Size = new System.Drawing.Size(204, 27);
             this.txtComplainant.TabIndex = 19;
             // 
             // NewRecord
             // 
+            this.NewRecord.Controls.Add(this.cmbStatus);
+            this.NewRecord.Controls.Add(this.label9);
             this.NewRecord.Controls.Add(this.label11);
             this.NewRecord.Controls.Add(this.txtComplainant);
             this.NewRecord.Controls.Add(this.label8);
@@ -261,15 +265,6 @@
             this.NewRecord.TabStop = false;
             this.NewRecord.Text = "New Record";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(304, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(352, 135);
-            this.pictureBox1.TabIndex = 21;
-            this.pictureBox1.TabStop = false;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -280,6 +275,35 @@
             this.label11.Size = new System.Drawing.Size(195, 15);
             this.label11.TabIndex = 32;
             this.label11.Text = "Note: Fields with (*) are required.";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(304, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(352, 135);
+            this.pictureBox1.TabIndex = 21;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(465, 202);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 19);
+            this.label9.TabIndex = 33;
+            this.label9.Text = "Status";
+            // 
+            // cmbStatus
+            // 
+            this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStatus.Font = new System.Drawing.Font("Candara", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbStatus.FormattingEnabled = true;
+            this.cmbStatus.Location = new System.Drawing.Point(578, 199);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(204, 26);
+            this.cmbStatus.TabIndex = 34;
             // 
             // Form2
             // 
@@ -328,5 +352,7 @@
         private System.Windows.Forms.GroupBox NewRecord;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.Label label9;
     }
 }

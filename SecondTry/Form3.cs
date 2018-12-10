@@ -28,11 +28,16 @@ namespace SecondTry
             {
                 Form1 f1 = new Form1();
                 f1.Show();
-                this.Hide();
+
+               
             }
             catch (Exception ee)
             {
                 MessageBox.Show(ee.ToString());
+            }
+            finally
+            {
+                this.Hide();
             }
             
         }

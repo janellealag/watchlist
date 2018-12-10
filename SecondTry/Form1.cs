@@ -53,7 +53,7 @@ namespace SecondTry
             try
             {
                 cnn.Open();
-                string query = "Select * from tblwatchlist where watchstat = 'TRUE' order by userid desc ";
+                string query = "Select * from tblwatchlist where watchstat <> 'FALSE' order by userid desc ";
                 using (MySqlConnection conn = new MySqlConnection(connetionString))
                 {
                     MySqlCommand MyCommand2 = new MySqlCommand(query, cnn);
@@ -104,7 +104,7 @@ namespace SecondTry
             if (page == 1)
             {
                 
-                cmd = "Select * from tblwatchlist where watchstat = 'TRUE' order by userid desc LIMIT " + PgSize;
+                cmd = "Select * from tblwatchlist where watchstat <> 'FALSE' order by userid desc LIMIT " + PgSize;
                 
                 
             }
@@ -113,7 +113,7 @@ namespace SecondTry
                 // 10 - 1 = 9 * 20
                 int PreviousPageOffSet = (page - 1) * PgSize;
 
-                cmd = "Select * from tblwatchlist where userid NOT IN (Select * from (Select userID from tblwatchlist where watchstat = 'TRUE' order by userid desc LIMIT "+PreviousPageOffSet+") as a) and watchstat = 'TRUE' order by userid desc LIMIT " + PgSize;
+                cmd = "Select * from tblwatchlist where userid NOT IN (Select * from (Select userID from tblwatchlist where watchstat <> 'FALSE' order by userid desc LIMIT "+PreviousPageOffSet+") as a) and watchstat <> 'FALSE' order by userid desc LIMIT " + PgSize;
             
              
             }
@@ -182,7 +182,7 @@ namespace SecondTry
             DataTable dt = new DataTable();
             DataSet ds = new DataSet();
 
-            string cmd = "Select * from tblwatchlist where watchstat = 'TRUE' order by userid desc LIMIT "+PgSize;
+            string cmd = "Select * from tblwatchlist where watchstat <> 'FALSE' order by userid desc LIMIT "+PgSize;
 
             try
             {
@@ -340,6 +340,12 @@ namespace SecondTry
             e_bday.Text = selectedRow.Cells[5].Value.ToString();
             e_violation.Text = selectedRow.Cells[6].Value.ToString();
             e_complainant.Text = selectedRow.Cells[7].Value.ToString();
+
+            e_cmbStatus.Items.Add("Active");
+            e_cmbStatus.Items.Add("Permanent Cleared");
+            e_cmbStatus.Items.Add("Temporary Cleared");
+            e_cmbStatus.SelectedIndex = 0;
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -497,7 +503,7 @@ namespace SecondTry
                 try
                 {
                     cnn.Open();
-                    string query = "SELECT * FROM tblwatchlist WHERE CONCAT(firstname, middlename, lastname, othername, cmplainant, violation) LIKE '%"+this.txtSearch.Text+"%' and watchstat = 'TRUE' ";
+                    string query = "SELECT * FROM tblwatchlist WHERE CONCAT(firstname, middlename, lastname, othername, cmplainant, violation) LIKE '%"+this.txtSearch.Text+"%' and watchstat <> 'FALSE' ";
 
                     using (MySqlConnection conn = new MySqlConnection(connetionString))
                     {
