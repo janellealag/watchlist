@@ -112,6 +112,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form3";
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.Form3_Load);
+            this.VisibleChanged += new System.EventHandler(this.Form3_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

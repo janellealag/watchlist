@@ -14,34 +14,55 @@ namespace SecondTry
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            
-        InitializeComponent();
-            //loaddata();
-            CalculateTotalPages();
-            initializeDataGrid(1);
-            
-
-        }
-
         private int PgSize = 20;
         private int CurrentPageIndex = 1;
         private int TotalPage = 0;
 
-        private void initializeDataGrid(int page)
+        private string showing = "";
+
+        public Form1()
+        {
+            
+            try
+            {
+                InitializeComponent();
+                //start
+                initializeDataGrid(1, "All");
+                CalculateTotalPages("All");
+            }
+            catch (Exception ees)
+            {
+
+            }
+            
+            
+
+
+        }
+
+        
+
+        private void initializeDataGrid(int page, string filter)
         {
             DataSet ds = new DataSet();
             
             dataGridView1.AutoGenerateColumns = false;
-             dataGridView1.DataSource = GetCurrentRecords(page);
+             dataGridView1.DataSource = GetCurrentRecords(page, filter);
             //MessageBox.Show(GetCurrentRecords(page).Rows.Count.ToString());
-
            
+            try
+            {
+                getSelectedRow();
+            }
+            catch (Exception ee)
+            {
 
+            }
         }
 
-        private void CalculateTotalPages()
+
+
+        private void CalculateTotalPages(string filter)
         {
             
             string connetionString = null;
@@ -53,7 +74,24 @@ namespace SecondTry
             try
             {
                 cnn.Open();
-                string query = "Select * from tblwatchlist where watchstat <> 'FALSE' order by userid desc ";
+                string query = "";
+                if (filter == "All")
+                {
+                    query = "Select * from tblwatchlist where watchstat <> 'FALSE' order by userid desc ";
+                }
+                else if (filter == "Active")
+                {
+                    query = "Select * from tblwatchlist where watchstat = 'Active' order by userid desc ";
+                }
+                else if (filter == "Permanent Cleared")
+                {
+                    query = "Select * from tblwatchlist where watchstat = 'Permanent Cleared' order by userid desc ";
+                }
+                else
+                {
+                    query = "Select * from tblwatchlist where watchstat = 'Temporary Cleared' order by userid desc ";
+                }
+                
                 using (MySqlConnection conn = new MySqlConnection(connetionString))
                 {
                     MySqlCommand MyCommand2 = new MySqlCommand(query, cnn);
@@ -89,7 +127,7 @@ namespace SecondTry
             txtPageCount.Text = "Showing "+CurrentPageIndex.ToString()+" out of "+TotalPage.ToString()+" pages";
         }
 
-        private DataTable GetCurrentRecords(int page)
+        private DataTable GetCurrentRecords(int page, string filter)
         {
             string connetionString = null;
             MySqlConnection cnn;
@@ -101,21 +139,48 @@ namespace SecondTry
             string cmd = null;
 
 
-            if (page == 1)
+            if (page == 1 && filter == "All")
             {
                 
                 cmd = "Select * from tblwatchlist where watchstat <> 'FALSE' order by userid desc LIMIT " + PgSize;
-                
-                
+                                
+            }
+            else if (page == 1 && filter == "Active")
+            {
+                cmd = "Select * from tblwatchlist where watchstat = 'Active' order by userid desc LIMIT " + PgSize;
+            }
+            else if (page == 1 && filter == "Permanent Cleared")
+            {
+                cmd = "Select * from tblwatchlist where watchstat = 'Permanent Cleared' order by userid desc LIMIT " + PgSize;
+            }
+            else if (page == 1 && filter == "Temporary Cleared")
+            {
+                cmd = "Select * from tblwatchlist where watchstat = 'Temporary Cleared' order by userid desc LIMIT " + PgSize;
             }
             else
             {
                 // 10 - 1 = 9 * 20
                 int PreviousPageOffSet = (page - 1) * PgSize;
 
-                cmd = "Select * from tblwatchlist where userid NOT IN (Select * from (Select userID from tblwatchlist where watchstat <> 'FALSE' order by userid desc LIMIT "+PreviousPageOffSet+") as a) and watchstat <> 'FALSE' order by userid desc LIMIT " + PgSize;
+                if (filter == "All")
+                {
+                    cmd = "Select * from tblwatchlist where userid NOT IN (Select * from (Select userID from tblwatchlist where watchstat <> 'FALSE' order by userid desc LIMIT " + PreviousPageOffSet + ") as a) and watchstat <> 'FALSE' order by userid desc LIMIT " + PgSize;
+                }
+                else if (filter == "Active")
+                {
+                    cmd = "Select * from tblwatchlist where userid NOT IN (Select * from (Select userID from tblwatchlist where watchstat = 'Active' order by userid desc LIMIT " + PreviousPageOffSet + ") as a) and watchstat = 'Active' order by userid desc LIMIT " + PgSize;
+                }
+                else if (filter == "Permanent Cleared")
+                {
+                    cmd = "Select * from tblwatchlist where userid NOT IN (Select * from (Select userID from tblwatchlist where watchstat = 'Permanent Cleared' order by userid desc LIMIT " + PreviousPageOffSet + ") as a) and watchstat = 'Permanent Cleared' order by userid desc LIMIT " + PgSize;
+                }
+                else
+                {
+                    cmd = "Select * from tblwatchlist where userid NOT IN (Select * from (Select userID from tblwatchlist where watchstat = 'Temporary Cleared' order by userid desc LIMIT " + PreviousPageOffSet + ") as a) and watchstat = 'Temporary Cleared' order by userid desc LIMIT " + PgSize;
+                }
+
+                
             
-             
             }
 
             try
@@ -128,12 +193,8 @@ namespace SecondTry
                 using (MySqlConnection conn = new MySqlConnection(connetionString))
                 {
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd, conn))
-                    {
-
-                        
+                    {   
                         adapter.Fill(dt);
-                        
-
                     }
                 }
            
@@ -145,17 +206,10 @@ namespace SecondTry
             }
             return dt;
 
-
-
         }
 
-        
-       
-
-        public void loaddata()
+        private void getSelectedRow()
         {
-            CalculateTotalPages();
-            initializeDataGrid(1);
             int selectedrowindex = dataGridView1.CurrentCell.RowIndex;
 
             DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
@@ -169,54 +223,30 @@ namespace SecondTry
             e_violation.Text = selectedRow.Cells[6].Value.ToString();
             e_complainant.Text = selectedRow.Cells[7].Value.ToString();
 
+            if (selectedRow.Cells[8].Value.ToString() == "Active")
+            {
+                e_cmbStatus.SelectedIndex = 0;
+            }
+            else if (selectedRow.Cells[8].Value.ToString() == "Permanent Cleared")
+            {
+                e_cmbStatus.SelectedIndex = 1;
+            }
+            else
+            {
+                e_cmbStatus.SelectedIndex = 2;
+            }
         }
 
-
-        public void loaddata2()
+             
+        public void loaddata()
         {
-
-            string connetionString = null;
-            MySqlConnection cnn;
-            connetionString = "server=localhost;database=dcm;uid=root;";
-            cnn = new MySqlConnection(connetionString);
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-
-            string cmd = "Select * from tblwatchlist where watchstat <> 'FALSE' order by userid desc LIMIT "+PgSize;
-
-            try
-            {
-                cnn.Open();
-                MySqlCommand MyCommand2 = new MySqlCommand(cmd, cnn);
-                MySqlDataReader MyReader2;
-                MyReader2 = MyCommand2.ExecuteReader();
-
-                using (MySqlConnection conn = new MySqlConnection(connetionString))
-                {
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd, conn))
-                    {
-
-
-                        adapter.Fill(ds);
-                        dataGridView1.AutoGenerateColumns = true;
-                        dataGridView1.DataSource = ds.Tables[0];
-
-                        
-                    }
-                }
-
-
-            }
-            catch (Exception e)
-            {
-                
-            }
-           
-
-
+            CalculateTotalPages("All");
+            initializeDataGrid(1, "All");
+            getSelectedRow();
 
         }
 
+        
         private void button1_Click(object sender, EventArgs e)
         {
             
@@ -268,7 +298,7 @@ namespace SecondTry
                         else
                         {
                             cnn.Open();
-                            string query = "Update tblwatchlist set lastname = '" + this.e_lname.Text + "', firstname = '" + this.e_fname.Text + "', othername = '" + this.e_oname.Text + "', bdate = '" + this.e_bday.Value.Date.ToString("yyyy-MM-dd") + "', violation = '" + this.e_violation.Text + "', cmplainant = '" + this.e_complainant.Text + "', middlename = '" + this.e_mname.Text + "' where userid = '" + this.e_userid.Text + "' ";
+                            string query = "Update tblwatchlist set lastname = '" + this.e_lname.Text + "', firstname = '" + this.e_fname.Text + "', othername = '" + this.e_oname.Text + "', bdate = '" + this.e_bday.Value.Date.ToString("yyyy-MM-dd") + "', violation = '" + this.e_violation.Text + "', cmplainant = '" + this.e_complainant.Text + "', middlename = '" + this.e_mname.Text + "', watchstat = '"+e_cmbStatus.Text+"' where userid = '" + this.e_userid.Text + "' ";
                             using (MySqlConnection conn = new MySqlConnection(connetionString))
                             {
 
@@ -319,6 +349,19 @@ namespace SecondTry
                 e_violation.Text = selectedRow.Cells[6].Value.ToString();
                 e_complainant.Text = selectedRow.Cells[7].Value.ToString();
 
+                if (selectedRow.Cells[8].Value.ToString() == "Active")
+                {
+                    e_cmbStatus.SelectedIndex = 0;
+                }
+                else if (selectedRow.Cells[8].Value.ToString() == "Permanent Cleared")
+                {
+                    e_cmbStatus.SelectedIndex = 1;
+                }
+                else
+                {
+                    e_cmbStatus.SelectedIndex = 2;
+                }
+
             }
             
         }
@@ -328,23 +371,54 @@ namespace SecondTry
             this.WindowState = FormWindowState.Maximized;
             // MessageBox.Show(dataGridView1.CurrentCell.RowIndex.ToString());
 
-            int selectedrowindex = dataGridView1.CurrentCell.RowIndex;
+            
 
-            DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+            try
+            {
+                int selectedrowindex = dataGridView1.CurrentCell.RowIndex;
+                DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
 
-            e_userid.Text = selectedRow.Cells[0].Value.ToString();
-            e_fname.Text = selectedRow.Cells[1].Value.ToString();
-            e_mname.Text = selectedRow.Cells[2].Value.ToString();
-            e_lname.Text = selectedRow.Cells[3].Value.ToString();
-            e_oname.Text = selectedRow.Cells[4].Value.ToString();
-            e_bday.Text = selectedRow.Cells[5].Value.ToString();
-            e_violation.Text = selectedRow.Cells[6].Value.ToString();
-            e_complainant.Text = selectedRow.Cells[7].Value.ToString();
 
-            e_cmbStatus.Items.Add("Active");
-            e_cmbStatus.Items.Add("Permanent Cleared");
-            e_cmbStatus.Items.Add("Temporary Cleared");
-            e_cmbStatus.SelectedIndex = 0;
+                e_cmbStatus.Items.Add("Active");
+                e_cmbStatus.Items.Add("Permanent Cleared");
+                e_cmbStatus.Items.Add("Temporary Cleared");
+
+                cmbShow.Items.Add("All");
+                cmbShow.Items.Add("Active");
+                cmbShow.Items.Add("Permanent Cleared");
+                cmbShow.Items.Add("Temporary Cleared");
+                cmbShow.SelectedIndex = 0;
+
+                e_userid.Text = selectedRow.Cells[0].Value.ToString();
+                e_fname.Text = selectedRow.Cells[1].Value.ToString();
+                e_mname.Text = selectedRow.Cells[2].Value.ToString();
+                e_lname.Text = selectedRow.Cells[3].Value.ToString();
+                e_oname.Text = selectedRow.Cells[4].Value.ToString();
+                e_bday.Text = selectedRow.Cells[5].Value.ToString();
+                e_violation.Text = selectedRow.Cells[6].Value.ToString();
+                e_complainant.Text = selectedRow.Cells[7].Value.ToString();
+
+                if (selectedRow.Cells[8].Value.ToString() == "Active")
+                {
+                    e_cmbStatus.SelectedIndex = 0;
+                }
+                else if (selectedRow.Cells[8].Value.ToString() == "Permanent Cleared")
+                {
+                    e_cmbStatus.SelectedIndex = 1;
+                }
+                else
+                {
+                    e_cmbStatus.SelectedIndex = 2;
+                }
+            }
+            catch (Exception es)
+            {
+
+            }
+           
+
+
+            
 
         }
 
@@ -417,7 +491,7 @@ namespace SecondTry
                 txtPageCount.Text = "Showing " + CurrentPageIndex.ToString() + " out of " + TotalPage.ToString()+" pages";
 
 
-                dataGridView1.DataSource = GetCurrentRecords(this.CurrentPageIndex);
+                dataGridView1.DataSource = GetCurrentRecords(this.CurrentPageIndex, showing);
             }
         }
 
@@ -428,7 +502,7 @@ namespace SecondTry
                 this.CurrentPageIndex--;
                 txtPageCount.Text = "Showing " + CurrentPageIndex.ToString() + " out of " + TotalPage.ToString() + " pages";
 
-                this.dataGridView1.DataSource = GetCurrentRecords(this.CurrentPageIndex);
+                this.dataGridView1.DataSource = GetCurrentRecords(this.CurrentPageIndex, showing);
             }
         }
 
@@ -437,7 +511,7 @@ namespace SecondTry
             this.CurrentPageIndex = 1;
             txtPageCount.Text = "Showing " + CurrentPageIndex.ToString() + " out of " + TotalPage.ToString() + " pages";
 
-            this.dataGridView1.DataSource = GetCurrentRecords(this.CurrentPageIndex);
+            this.dataGridView1.DataSource = GetCurrentRecords(this.CurrentPageIndex, showing);
         }
 
         private void btnLast_Click(object sender, EventArgs e)
@@ -445,7 +519,7 @@ namespace SecondTry
             this.CurrentPageIndex = TotalPage;
             txtPageCount.Text = "Showing " + CurrentPageIndex.ToString() + " out of " + TotalPage.ToString() + " pages";
 
-            this.dataGridView1.DataSource = GetCurrentRecords(this.CurrentPageIndex);
+            this.dataGridView1.DataSource = GetCurrentRecords(this.CurrentPageIndex, showing);
         }
 
         private void txtSearch_MouseDown(object sender, MouseEventArgs e)
@@ -472,7 +546,7 @@ namespace SecondTry
                 btnNext.Enabled = true;
                 btnPrev.Enabled = true;
                 txtPageCount.Visible = true;
-                initializeDataGrid(1);
+                initializeDataGrid(1, showing);
 
                 int selectedrowindex = dataGridView1.CurrentCell.RowIndex;
 
@@ -486,6 +560,19 @@ namespace SecondTry
                 e_bday.Text = selectedRow.Cells[5].Value.ToString();
                 e_violation.Text = selectedRow.Cells[6].Value.ToString();
                 e_complainant.Text = selectedRow.Cells[7].Value.ToString();
+
+                if (selectedRow.Cells[8].Value.ToString() == "Active")
+                {
+                    e_cmbStatus.SelectedIndex = 0;
+                }
+                else if (selectedRow.Cells[8].Value.ToString() == "Permanent Cleared")
+                {
+                    e_cmbStatus.SelectedIndex = 1;
+                }
+                else
+                {
+                    e_cmbStatus.SelectedIndex = 2;
+                }
             }
             else
             {
@@ -545,6 +632,19 @@ namespace SecondTry
                                 e_bday.Text = selectedRow.Cells[5].Value.ToString();
                                 e_violation.Text = selectedRow.Cells[6].Value.ToString();
                                 e_complainant.Text = selectedRow.Cells[7].Value.ToString();
+
+                                if (selectedRow.Cells[8].Value.ToString() == "Active")
+                                {
+                                    e_cmbStatus.SelectedIndex = 0;
+                                }
+                                else if (selectedRow.Cells[8].Value.ToString() == "Permanent Cleared")
+                                {
+                                    e_cmbStatus.SelectedIndex = 1;
+                                }
+                                else
+                                {
+                                    e_cmbStatus.SelectedIndex = 2;
+                                }
                             }
 
                            
@@ -565,6 +665,49 @@ namespace SecondTry
         private void label11_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbShow_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbShow.SelectedIndex == 0)
+            {
+                // all
+                showing = "All";
+                CalculateTotalPages(showing);
+                initializeDataGrid(1, showing);
+
+            }
+            else if (cmbShow.SelectedIndex == 1)
+            {
+                // active
+                showing = "Active";
+                CalculateTotalPages(showing);
+                initializeDataGrid(1, showing);
+            }
+            else if (cmbShow.SelectedIndex == 2)
+            {
+                // Permanent cleared
+                showing = "Permanent Cleared";
+                CalculateTotalPages(showing);
+                initializeDataGrid(1, showing);
+            }
+            else
+            {
+                // Temporary cleared
+                showing = "Temporary Cleared";
+                CalculateTotalPages(showing);
+                initializeDataGrid(1, showing);
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

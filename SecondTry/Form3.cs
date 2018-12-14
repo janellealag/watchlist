@@ -27,19 +27,29 @@ namespace SecondTry
             try
             {
                 Form1 f1 = new Form1();
-                f1.Show();
-
-               
-            }
-            catch (Exception ee)
-            {
-                MessageBox.Show(ee.ToString());
-            }
-            finally
-            {
                 this.Hide();
+                f1.ShowDialog();
+                this.Close();
+                
             }
+            catch (Exception eee)
+            {
+
+            }
+                            
             
+        }
+
+       
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form3_VisibleChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }

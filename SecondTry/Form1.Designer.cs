@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -41,8 +41,8 @@
             this.colbday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colviolation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colcomplainant = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.e_userid = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -76,19 +76,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnRefresh
             // 
-            this.button1.Location = new System.Drawing.Point(645, 632);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 41);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Refresh";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnRefresh.Location = new System.Drawing.Point(646, 650);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(100, 41);
+            this.btnRefresh.TabIndex = 0;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(452, 632);
+            this.btnAdd.Location = new System.Drawing.Point(453, 650);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(187, 41);
             this.btnAdd.TabIndex = 1;
@@ -121,12 +121,13 @@
             this.colsuffix,
             this.colbday,
             this.colviolation,
-            this.colcomplainant});
+            this.colcomplainant,
+            this.colStatus});
             this.dataGridView1.Location = new System.Drawing.Point(453, 146);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(763, 467);
+            this.dataGridView1.Size = new System.Drawing.Size(763, 476);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_2);
@@ -190,6 +191,13 @@
             this.colcomplainant.ReadOnly = true;
             this.colcomplainant.Width = 120;
             // 
+            // colStatus
+            // 
+            this.colStatus.DataPropertyName = "watchstat";
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(147, 572);
@@ -199,17 +207,6 @@
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bookman Old Style", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(448, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(228, 27);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "List of Watchlisted";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // e_userid
             // 
@@ -350,7 +347,7 @@
             // 
             // btnPrev
             // 
-            this.btnPrev.Location = new System.Drawing.Point(941, 632);
+            this.btnPrev.Location = new System.Drawing.Point(942, 650);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(63, 41);
             this.btnPrev.TabIndex = 22;
@@ -360,7 +357,7 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(1010, 632);
+            this.btnNext.Location = new System.Drawing.Point(1011, 650);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(63, 41);
             this.btnNext.TabIndex = 23;
@@ -371,7 +368,7 @@
             // txtPageCount
             // 
             this.txtPageCount.AutoSize = true;
-            this.txtPageCount.Location = new System.Drawing.Point(1089, 646);
+            this.txtPageCount.Location = new System.Drawing.Point(1090, 664);
             this.txtPageCount.Name = "txtPageCount";
             this.txtPageCount.Size = new System.Drawing.Size(126, 13);
             this.txtPageCount.TabIndex = 24;
@@ -379,7 +376,7 @@
             // 
             // btnFirst
             // 
-            this.btnFirst.Location = new System.Drawing.Point(800, 632);
+            this.btnFirst.Location = new System.Drawing.Point(801, 650);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(64, 41);
             this.btnFirst.TabIndex = 25;
@@ -389,7 +386,7 @@
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(870, 632);
+            this.btnLast.Location = new System.Drawing.Point(871, 650);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(65, 41);
             this.btnLast.TabIndex = 26;
@@ -488,8 +485,9 @@
             this.cmbShow.FormattingEnabled = true;
             this.cmbShow.Location = new System.Drawing.Point(494, 102);
             this.cmbShow.Name = "cmbShow";
-            this.cmbShow.Size = new System.Drawing.Size(219, 26);
+            this.cmbShow.Size = new System.Drawing.Size(182, 26);
             this.cmbShow.TabIndex = 37;
+            this.cmbShow.SelectedIndexChanged += new System.EventHandler(this.cmbShow_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -526,15 +524,15 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.e_userid);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnRefresh);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "MARINA SID WATCH LIST";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -545,12 +543,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox e_userid;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -573,6 +570,13 @@
         private System.Windows.Forms.Button btnLast;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.DateTimePicker e_bday;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox e_cmbStatus;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cmbShow;
         private System.Windows.Forms.DataGridViewTextBoxColumn coluserid;
         private System.Windows.Forms.DataGridViewTextBoxColumn colfname;
         private System.Windows.Forms.DataGridViewTextBoxColumn colmname;
@@ -581,13 +585,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colbday;
         private System.Windows.Forms.DataGridViewTextBoxColumn colviolation;
         private System.Windows.Forms.DataGridViewTextBoxColumn colcomplainant;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox e_cmbStatus;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox cmbShow;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
     }
 }
 
